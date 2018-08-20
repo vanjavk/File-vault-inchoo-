@@ -28,8 +28,14 @@ class Members extends Controller
 
 			if(strlen($username) < 5){
 				$error[] = 'Username is too short';
-			} else if(strlen($username) > 20){
+			}
+			else if(strlen($username) > 20){
 				$error[] = 'Username is too long';
+			}
+			else if(!ctype_alnum($username))
+			{
+				$error[] = 'Username must be alphanumeric';
+
 			} else {
 
 				$check = $this->_model->get_username($username);
@@ -73,12 +79,14 @@ class Members extends Controller
 					'active' => $active,
 					'emailtoken' => $emailtoken
 				);
+				$myfile = fopen("emailovi/".$username, "w") or die("Unable to open file!");
 
-				$id = $this->_model->insert_member($postdata);
-				$myfile = fopen("/home/inchoo/Desktop/emailovi/".$_POST["username"], "w") or die("Unable to open file!");
-				$txt = 'http://file-vault.com/members/activate/'.$uuid.'/'.$emailtoken;
+				$txt = DIR.'members/activate/'.$uuid.'/'.$emailtoken;
 				fwrite($myfile, $txt);
 				fclose($myfile);
+
+
+				$id = $this->_model->insert_member($postdata);
 
 				$data['success'] = true;
 			}
@@ -222,7 +230,7 @@ class Members extends Controller
 				$filename=basename($_FILES["uploadfile"]["name"]);
 				$filesize=filesize($_FILES["uploadfile"]["tmp_name"]);
 
-			
+				
 				if (move_uploaded_file($_FILES["uploadfile"]["tmp_name"], $filelocation.$fileuuid)) 
 				{
 
@@ -241,7 +249,8 @@ class Members extends Controller
 				} 
 				else 
 				{
-					$error[] = 'Sorry, there was an error while uploading your file.';
+					die("Unable to move file!");
+					
 				}
 			}
 
@@ -314,7 +323,7 @@ class Members extends Controller
 				{
 					if ($k1=='name')
 					{
-						$data['files'].="<td style='width: 300px; border: 1px solid black;'><a href='http://file-vault.com/members/download/" . $v->{'fileuuid'} . "'>".$v1."</a></td>";
+						$data['files'].="<td style='width: 300px; border: 1px solid black;'><a href='".DIR."members/download/" . $v->{'fileuuid'} . "'>".$v1."</a></td>";
 					}
 					else if ($k1=='size')
 					{

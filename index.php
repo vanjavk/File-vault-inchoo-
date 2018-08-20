@@ -3,19 +3,10 @@ ob_start();
 	
 date_default_timezone_set('Europe/London');
 
-define('DIR','http://file-vault.com/');
+
 define('DOCROOT', dirname(__FILE__));
 
-define('DB_TYPE','mysql');
-define('DB_HOST','localhost');
-define('DB_NAME','users');
-define('DB_USER','phpmyadmin');
-define('DB_PASS','vanjavk321');
-define('PREFIX','smvc_');
-
-define('SESSION_PREFIX','smvc_');
-
-define('SITETITLE','Simple MVC Framework');
+require_once('dbinfo.php');
 
 function autoloadsystem($class) 
 {
