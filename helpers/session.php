@@ -18,7 +18,7 @@ class Session
 
 	public static function set($key,$value)
 	{
-		$_SESSION[SESSION_PREFIX.$key] = $value;
+		$_SESSION[$key] = $value;
 	}
 
 	public static function get($key,$secondkey = false){
@@ -26,18 +26,18 @@ class Session
 		if($secondkey == true)
 		{
 
-			if(isset($_SESSION[SESSION_PREFIX.$key][$secondkey]))
+			if(isset($_SESSION[$key][$secondkey]))
 			{
-				return $_SESSION[SESSION_PREFIX.$key][$secondkey];
+				return $_SESSION[$key][$secondkey];
 			}
 
 		} 
 		else 
 		{
 
-			if(isset($_SESSION[SESSION_PREFIX.$key]))
+			if(isset($_SESSION[$key]))
 			{
-				return $_SESSION[SESSION_PREFIX.$key];
+				return $_SESSION[$key];
 			}
 
 		}

@@ -67,7 +67,7 @@ class Members extends Controller
 
 				$emailtoken = Utility::uuid();
 
-				$hash=password_hash($password, PASSWORD_ARGON2I);
+				$hash=password_hash($password, PASSWORD_DEFAULT);
 
 				$active = 'unconfirmedemail';
 				
@@ -219,17 +219,46 @@ class Members extends Controller
 		if(Session::get('loggedin') == false){
 			Url::redirect('members/login');
 		}
-
+		#
 		if(isset($_POST["submit"]))
 		{
 			if(isset($_FILES["uploadfile"]))
 			{
+				function whitelist($string, $whitelist)
+				{
+				    $strlen = strlen($string);
+				    $whtlen = strlen($whitelist);
+				    $good_char = false;
+				    $newstring='';
+				    for($i = 0; $i < $strlen; $i++)
+				    {
+				       for($j = 0; $j < $whtlen; $j++)
+				       {
+				           if($string[$i] === $whitelist[$j])
+				           {
+				               $good_char = true;
+				           }    
+				       }
+				       if($good_char == true)
+				       {
+				           $newstring .= $string[$i];     
+				       }
+				       $good_char = false;
+				    } 
+				    return $newstring;    
+				}
+				$whitelist='ABCDEFGHIJKLMNOPQRSTUVWXYZ._- abcdefghijklmnopqrstuvwxyz0123456789';
 				$fileuuid=Utility::uuid();
 				$filelocation="files/";
 				clearstatcache();
-				$filename=basename($_FILES["uploadfile"]["name"]);
+				$filename=whitelist(basename($_FILES["uploadfile"]["name"]),$whitelist);
+				if ($filename=='')
+				{
+					$filename='file';
+				}
 				$filesize=filesize($_FILES["uploadfile"]["tmp_name"]);
-
+				//takes input $string, and removes any chars not in $whitelist
+				
 				
 				if (move_uploaded_file($_FILES["uploadfile"]["tmp_name"], $filelocation.$fileuuid)) 
 				{
