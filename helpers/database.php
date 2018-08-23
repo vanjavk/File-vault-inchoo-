@@ -11,8 +11,7 @@ class Database extends PDO
 			$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'utf8'");
 		} catch(PDOException $e){
-			Logger::newMessage($e);
-			logger::customErrorMsg();
+			die("error connecting to db");
 		}
 
 	}
@@ -101,8 +100,6 @@ class Database extends PDO
 	{
 
 		$stmt = $this->prepare("DELETE FROM $table WHERE $where = '$data'");
-
-		
 
 		$stmt->execute();
 

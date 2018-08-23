@@ -21,25 +21,12 @@ class Session
 		$_SESSION[$key] = $value;
 	}
 
-	public static function get($key,$secondkey = false){
+	public static function get($key){
 
-		if($secondkey == true)
+
+		if(isset($_SESSION[$key]))
 		{
-
-			if(isset($_SESSION[$key][$secondkey]))
-			{
-				return $_SESSION[$key][$secondkey];
-			}
-
-		} 
-		else 
-		{
-
-			if(isset($_SESSION[$key]))
-			{
-				return $_SESSION[$key];
-			}
-
+			return $_SESSION[$key];
 		}
 
 		return false;
