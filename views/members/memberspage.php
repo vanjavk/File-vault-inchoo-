@@ -9,7 +9,9 @@ if(isset($error)){
 ?>
 <form action="" method="post" enctype="multipart/form-data" >
 	Select file to upload:
-	<input type="file" name="uploadfile" id="uploadfile">
+	label
+	<input type="file" class="hide" name="uploadfile" id="uploadfile">
+	<label for="uploadfile" class="btn btn-success">Browse</label>
 	<input type="submit" value="Upload file" name="submit">
 </form>
 <?php echo $data['files'];?>

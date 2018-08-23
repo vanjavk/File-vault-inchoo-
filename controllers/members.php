@@ -224,40 +224,16 @@ class Members extends Controller
 		{
 			if(isset($_FILES["uploadfile"]))
 			{
-				function whitelist($string, $whitelist)
-				{
-				    $strlen = strlen($string);
-				    $whtlen = strlen($whitelist);
-				    $good_char = false;
-				    $newstring='';
-				    for($i = 0; $i < $strlen; $i++)
-				    {
-				       for($j = 0; $j < $whtlen; $j++)
-				       {
-				           if($string[$i] === $whitelist[$j])
-				           {
-				               $good_char = true;
-				           }    
-				       }
-				       if($good_char == true)
-				       {
-				           $newstring .= $string[$i];     
-				       }
-				       $good_char = false;
-				    } 
-				    return $newstring;    
-				}
-				$whitelist='ABCDEFGHIJKLMNOPQRSTUVWXYZ._- abcdefghijklmnopqrstuvwxyz0123456789';
+				
 				$fileuuid=Utility::uuid();
 				$filelocation="files/";
 				clearstatcache();
-				$filename=whitelist(basename($_FILES["uploadfile"]["name"]),$whitelist);
+				$filename=basename($_FILES["uploadfile"]["name"]);
 				if ($filename=='')
 				{
 					$filename='file';
 				}
 				$filesize=filesize($_FILES["uploadfile"]["tmp_name"]);
-				//takes input $string, and removes any chars not in $whitelist
 				
 				
 				if (move_uploaded_file($_FILES["uploadfile"]["tmp_name"], $filelocation.$fileuuid)) 
@@ -352,7 +328,7 @@ class Members extends Controller
 				{
 					if ($k1=='name')
 					{
-						$data['files'].="<td style='width: 300px; border: 1px solid black;'><a href='".DIR."members/download/" . $v->{'fileuuid'} . "'>".$v1."</a></td>";
+						$data['files'].="<td style='width: 300px; border: 1px solid black;'><a href='".DIR."members/download/" . $v->{'fileuuid'} . "'>".htmlspecialchars($v1, ENT_QUOTES, 'UTF-8')."</a></td>";
 					}
 					else if ($k1=='size')
 					{
@@ -360,7 +336,7 @@ class Members extends Controller
 					}
 					else if ($k1=='downloads')
 					{
-						$data['files'].="<td style='width: 50px; border: 1px solid black;'>" .$v1 . "</td>";
+						$data['files'].="<td style='width: 50px; border: 1px solid black;'>" .htmlspecialchars($v1, ENT_QUOTES, 'UTF-8'). "</td>";
 					}
 					else if ($k1=='public')
 					{
@@ -387,7 +363,7 @@ class Members extends Controller
 					}
 					else
 					{
-						$data['files'].="<td style='width: 300px; border: 1px solid black;'>" . $v1 . "</td>";
+						$data['files'].="<td style='width: 300px; border: 1px solid black;'>" . htmlspecialchars($v1, ENT_QUOTES, 'UTF-8') . "</td>";
 					}
 				}
 				$data['files'].='</tr>';
