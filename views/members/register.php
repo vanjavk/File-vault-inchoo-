@@ -20,5 +20,5 @@ if(isset($error)){
 <p>Email<br /><input type='text' name='email' value='<?php if(isset($error)){ echo $data['email']; } ?>'></p>
 <p>Password<br /><input type='password' name='password' value=''></p>
 <p>Password Confirm<br /><input type='password' name='passwordConfirm' value=''></p>
-<p><input type='submit' name='submit' value='Register'></p>
+<p><input type='submit' name='submit' class="btn btn-info" value='Register'></p>
 </form>

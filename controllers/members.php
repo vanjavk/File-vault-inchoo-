@@ -317,8 +317,8 @@ class Members extends Controller
 		{
 			#print_r($files);
 			$data['files']='';
-			$data['files'].="<table style='border: solid 1px black;'>";
-			$data['files'].="<tr><th>ID</th><th>File name</th><th>Size</th><th>Downloads</th><th>Options</th></tr>";
+			$data['files'].="<table  class=\"table thead-light\">";
+			$data['files'].="<tr><th scope=\"col\">ID</th><th scope=\"col\">File name</th><th scope=\"col\">Size</th><th scope=\"col\">Downloads</th><th scope=\"col\">Options</th></tr>";
 
 			foreach($files as $k=>$v)
 			{
@@ -328,34 +328,34 @@ class Members extends Controller
 				{
 					if ($k1=='name')
 					{
-						$data['files'].="<td style='width: 300px; border: 1px solid black;'><a href='".DIR."members/download/" . $v->{'fileuuid'} . "'>".htmlspecialchars($v1, ENT_QUOTES, 'UTF-8')."</a></td>";
+						$data['files'].="<td style='width: 300px';><a href='".DIR."members/download/" . $v->{'fileuuid'} . "'>".htmlspecialchars($v1, ENT_QUOTES, 'UTF-8')."</a></td>";
 					}
 					else if ($k1=='size')
 					{
-						$data['files'].="<td style='width: 150px; border: 1px solid black;'>" . Utility::formatUnitSize($v1) . "</td>";
+						$data['files'].="<td style='width: 150px';>" . Utility::formatUnitSize($v1) . "</td>";
 					}
 					else if ($k1=='downloads')
 					{
-						$data['files'].="<td style='width: 50px; border: 1px solid black;'>" .htmlspecialchars($v1, ENT_QUOTES, 'UTF-8'). "</td>";
+						$data['files'].="<td style='width: 50px;'>" .htmlspecialchars($v1, ENT_QUOTES, 'UTF-8'). "</td>";
 					}
 					else if ($k1=='public')
 					{
 						if ($v1==1)
 						{
 
-							$data['files'].="<td style='width: 200px; border: 1px solid black;'>
+							$data['files'].="<td style='width: 230px;'>
 							<form action='' method='POST'>" .
-							"<button type='submit' name = 'fileaccess' value = '". $v->{'fileuuid'} ."'>make private</button>".
-							"<button type='submit' name = 'fileremove' value = '". $v->{'fileuuid'} ."'>remove</button>".
+							"<button type='submit' class='btn btn-warning' name = 'fileaccess' value = '". $v->{'fileuuid'} ."'>make private</button> ".
+							"<button type='submit' class='btn btn-danger' name = 'fileremove' value = '". $v->{'fileuuid'} ."'>remove</button>".
 							"</form></td>";
 						}
 						else
 						{
 
-							$data['files'].="<td style='width: 200px; border: 1px solid black;'>
+							$data['files'].="<td style='width: 230px;'>
 							<form action='' method='POST'>" .
-							"<button type='submit' name = 'fileaccess' value = '". $v->{'fileuuid'} ."'>make public</button>".
-							"<button type='submit' name = 'fileremove' value = '". $v->{'fileuuid'} ."'>remove</button>".
+							"<button type='submit' class='btn btn-warning' name = 'fileaccess' value = '". $v->{'fileuuid'} ."'>make public</button> ".
+							"<button type='submit' class='btn btn-danger' name = 'fileremove' value = '". $v->{'fileuuid'} ."'>remove</button>".
 							"</form></td>";
 
 						}
@@ -363,7 +363,7 @@ class Members extends Controller
 					}
 					else
 					{
-						$data['files'].="<td style='width: 300px; border: 1px solid black;'>" . htmlspecialchars($v1, ENT_QUOTES, 'UTF-8') . "</td>";
+						$data['files'].="<td style='width: 300px;'>" . htmlspecialchars($v1, ENT_QUOTES, 'UTF-8') . "</td>";
 					}
 				}
 				$data['files'].='</tr>';
