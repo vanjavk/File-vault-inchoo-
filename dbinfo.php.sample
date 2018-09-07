@@ -5,6 +5,7 @@ define('DB_HOST','localhost');
 define('DB_NAME','users');
 define('DB_USER','phpmyadmin');
 define('DB_PASS','vanjavk321');
+define('SITETITLE','file-vault');
 
 
 ?>
